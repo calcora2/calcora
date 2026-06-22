@@ -99,3 +99,14 @@ function searchTools(){
  const q=($('toolSearch')?.value||'').toLowerCase();
  document.querySelectorAll('[data-tool]').forEach(card=>{card.style.display=card.dataset.tool.toLowerCase().includes(q)?'block':'none'});
 }
+document.querySelectorAll('.cat').forEach(btn => {
+    btn.addEventListener('click', function () {
+
+        document.querySelectorAll('.cat').forEach(item => {
+            item.classList.remove('active');
+        });
+
+        this.classList.add('active');
+
+    });
+});
