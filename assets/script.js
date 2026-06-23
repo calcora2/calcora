@@ -115,7 +115,7 @@ else if(this.textContent.includes('Finance')){
     heading.textContent='💰 Finance Calculators';
 }
 else if(this.textContent.includes('Education')){
-    heading.textContent='Education Tools';
+    heading.textContent='🎓 Education Tools';
 }
 else if(this.textContent.includes('Text')){
     heading.textContent='📝 Text Tools';
