@@ -106,7 +106,26 @@ document.querySelectorAll('.cat').forEach(btn => {
             item.classList.remove('active');
         });
 
-        this.classList.add('active');
+        this.classList.add('active');const heading=document.getElementById('toolsHeading');
+
+if(this.textContent.includes('Health')){
+    heading.textContent='Health Calculators';
+}
+else if(this.textContent.includes('Finance')){
+    heading.textContent='Finance Calculators';
+}
+else if(this.textContent.includes('Education')){
+    heading.textContent='Education Tools';
+}
+else if(this.textContent.includes('Text')){
+    heading.textContent='Text Tools';
+}
+else if(this.textContent.includes('Conversion')){
+    heading.textContent='Conversion Tools';
+}
+else{
+    heading.textContent='All Tools';
+}
 
     });
 });
