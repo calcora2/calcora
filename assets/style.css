@@ -45,6 +45,7 @@ a{text-decoration:none;color:inherit}
 display:flex;
 align-items:center;
 justify-content:center;
+gap:10px;
 background:white;
 border:1px solid var(--border);
 border-radius:20px;
@@ -70,6 +71,9 @@ color:#fff;
 border-color:#2563eb;
 }
 
+.cat-icon{
+font-size:20px;
+}
 .why{
 ...
 }
