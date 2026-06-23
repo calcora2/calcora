@@ -63,19 +63,13 @@ transition:.3s;
 .cat:hover{
 background:#2563eb;
 color:#fff;
-transform:translateY(-2px);
-}
-
-.cat.active{
-background:#2563eb;
-color:#fff;
-border-color:#2563eb;
-}
+transform:translateY(-6px);
+box-shadow:0 15px 35px rgba(37,99,235,.18);}
 
 .cat-icon{
-font-size:34px;
+font-size:40px;
 line-height:1;
-margin-bottom:4px;
+margin-bottom:6px;
 }
 
 .why{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
