@@ -109,22 +109,22 @@ document.querySelectorAll('.cat').forEach(btn => {
         this.classList.add('active');const heading=document.getElementById('toolsHeading');
 
 if(this.textContent.includes('Health')){
-    heading.textContent='Health Calculators';
+    heading.textContent='❤️ Health Calculators';
 }
 else if(this.textContent.includes('Finance')){
-    heading.textContent='Finance Calculators';
+    heading.textContent='💰 Finance Calculators';
 }
 else if(this.textContent.includes('Education')){
     heading.textContent='Education Tools';
 }
 else if(this.textContent.includes('Text')){
-    heading.textContent='Text Tools';
+    heading.textContent='📝 Text Tools';
 }
 else if(this.textContent.includes('Conversion')){
-    heading.textContent='Conversion Tools';
+    heading.textContent='🔄 Conversion Tools';
 }
 else{
-    heading.textContent='All Tools';
+    heading.textContent='📋 All Tools';
 }
 
     });
