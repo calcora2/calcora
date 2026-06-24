@@ -121,11 +121,14 @@ else if(this.textContent.includes('Text')){
     heading.innerHTML='📝 Text Tools';
 }
 else if(this.textContent.includes('Conversion')){
-    heading.textContent='🔄 Conversion Tools';
+    heading.innerHTML='🔄 Conversion Tools';
 }
 else{
     heading.textContent='All Tools';
 }
-
     });
 });
+
+function toggleMenu(){
+document.getElementById('mobileMenu').classList.toggle('show');
+}

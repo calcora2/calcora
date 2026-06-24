@@ -103,3 +103,36 @@ input:focus,select:focus,textarea:focus{border-color:var(--secondary);box-shadow
   .hero h1{font-size:42px}.nav-links{display:none}.form-grid{grid-template-columns:1fr}.sidebar-box{position:static}
 }
 @media(max-width:560px){.tools-grid,.categories,.why,.mini-grid{grid-template-columns:1fr}.hero h1{font-size:34px}.section-title{display:block}.searchbox{display:block}.searchbox .btn{width:100%;margin-top:8px}}
+
+.menu-toggle{
+display:none;
+background:none;
+border:none;
+font-size:30px;
+cursor:pointer;
+color:#0F172A;
+}
+
+@media(max-width:768px){
+
+.menu-toggle{
+display:block;
+}
+
+.nav-links{
+display:none;
+flex-direction:column;
+position:absolute;
+top:70px;
+right:20px;
+background:white;
+padding:20px;
+border-radius:12px;
+box-shadow:0 10px 30px rgba(0,0,0,.1);
+z-index:999;
+}
+
+.nav-links.show{
+display:flex;
+}
+}
