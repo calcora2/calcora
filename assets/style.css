@@ -33,12 +33,28 @@ a{text-decoration:none;color:inherit}
 .section-title h2{font-size:36px;margin:0;letter-spacing:-1px}
 .section-title p{color:var(--muted);margin:8px 0 0;max-width:650px;line-height:1.6}
 .tools-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,320px));
-gap:18px;
+display:flex;
+flex-wrap:wrap;
 justify-content:center;
+gap:18px;
 }
-.tool-card{background:var(--card);border:1px solid var(--border);border-radius:22px;padding:22px;box-shadow:0 8px 25px rgba(15,23,42,.055);transition:.2s}
+
+.tool-card{
+width:320px;
+flex:0 0 320px;
+background:var(--card);
+border:1px solid var(--border);
+border-radius:22px;
+padding:22px;
+box-shadow:0 8px 25px rgba(15,23,42,.055);
+transition:.2s;
+}
+
+.tool-card:hover{
+transform:translateY(-4px);
+box-shadow:var(--shadow);
+border-color:#BDBFFE;
+}
 .tool-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#BFDBFE}
 .icon{width:46px;height:46px;border-radius:15px;display:grid;place-items:center;background:#EFF6FF;color:var(--secondary);font-size:22px;margin-bottom:15px}
 .tool-card h3{margin:0 0 8px;font-size:19px}
@@ -107,7 +123,22 @@ input:focus,select:focus,textarea:focus{border-color:var(--secondary);box-shadow
   .hero-grid,.tool-layout,.footer-grid{grid-template-columns:1fr}.tools-grid{grid-template-columns:repeat(auto-fit,minmax(260px,320px));justify-content:center}.categories,.why{grid-template-columns:repeat(2,1fr)}
   .hero h1{font-size:42px}.nav-links{display:none}.form-grid{grid-template-columns:1fr}.sidebar-box{position:static}
 }
-@media(max-width:560px){.tools-grid,.categories,.why,.mini-grid{grid-template-columns:1fr}.hero h1{font-size:34px}.section-title{display:block}.searchbox{display:block}.searchbox .btn{width:100%;margin-top:8px}}
+@media(max-width:560px){.tools-grid{
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.categories,
+.why,
+.mini-grid{
+grid-template-columns:1fr;
+}
+
+.tool-card{
+width:100%;
+max-width:340px;
+}.hero h1{font-size:34px}.section-title{display:block}.searchbox{display:block}.searchbox .btn{width:100%;margin-top:8px}}
 
 .menu-toggle{
 display:none;
