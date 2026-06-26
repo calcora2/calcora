@@ -173,12 +173,12 @@ box-shadow:0 10px 30px rgba(0,0,0,.1);
 z-index:999;
 }
 
-.nav-inner{
-    height:100px;
+.nav-links.show{
+display:flex;
 }
-
+}
 .logo-full{
-    height:80px;
+    height:100px;
     width:auto;
     display:block;
 }
