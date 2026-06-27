@@ -8,34 +8,63 @@ html{scroll-behavior:smooth}
 body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);color:var(--text)}
 a{text-decoration:none;color:inherit}
 .container{width:min(1180px,92%);margin:auto}
-.nav{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--border)}
-.nav-inner{height:95px;display:flex;align-items:center;justify-content:space-between}
-.logo{display:flex;align-items:center;gap:10px;font-weight:900;font-size:25px;letter-spacing:-.6px;padding-left:10px}
+/* =========================
+   Navigation
+========================= */
+
+.nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(14px);
+    box-shadow:
+        0 1px 3px rgba(15,23,42,.05),
+        0 8px 24px rgba(15,23,42,.04);
+}
+
+.nav-inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    height:68px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:900;
+    font-size:25px;
+    letter-spacing:-.6px;
+    padding-left:10px;
+}
+
 .site-logo{
     width:40px;
     height:40px;
     object-fit:contain;
 }
 
-/* Desktop */
-.nav-inner{
-    height:68px;
-}
-
 .logo-full{
     height:50px;
+    width:auto;
 }
 
-/* Mobile */
+/* =========================
+   Mobile Navigation
+========================= */
+
 @media (max-width:768px){
 
-.nav-inner{
-    height:68px;
-}
+    .nav-inner{
+        height:60px;
+    }
 
-.logo-full{
-    height:50px;
-}
+    .logo-full{
+        height:44px;
+        width:auto;
+    }
 
 }
 .mark{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--secondary),var(--accent));display:grid;place-items:center;color:white;font-weight:900}
