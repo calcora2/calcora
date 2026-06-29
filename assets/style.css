@@ -46,11 +46,6 @@ a{text-decoration:none;color:inherit}
     object-fit:contain;
 }
 
-.logo-full{
-    height:50px;
-    width:auto;
-}
-
 /* =========================
    Mobile Navigation
 ========================= */
@@ -229,7 +224,6 @@ display:flex;
 }
 }
 .logo-full{
-    height:120px;
+    height:50px;
     width:auto;
-    display:block;
 }
