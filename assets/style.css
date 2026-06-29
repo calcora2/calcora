@@ -223,8 +223,8 @@ z-index:999;
 display:flex;
 }
 
-.logo-nav{
-    height:65px;
+.logo-full{
+    height:48px;
     width:auto;
     display:block;
 }
