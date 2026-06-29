@@ -222,8 +222,9 @@ z-index:999;
 .nav-links.show{
 display:flex;
 }
-}
-.logo-full{
-    height:50px;
+
+.logo-nav{
+    height:65px;
     width:auto;
+    display:block;
 }
