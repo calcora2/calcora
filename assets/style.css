@@ -144,12 +144,11 @@ input:focus,select:focus,textarea:focus{border-color:var(--secondary);box-shadow
   padding-top:25px;
   color:#94A3B8;
 }
-
 @media(max-width:900px){
-  .footer-grid{
-    grid-template-columns:1fr;
-  }
-
+    .footer-grid{
+        grid-template-columns:1fr;
+    }
+}
 .logo-nav{
   height:55px !important;
   width:auto !important;
