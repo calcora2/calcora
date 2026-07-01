@@ -126,11 +126,9 @@ input:focus,select:focus,textarea:focus{border-color:var(--secondary);box-shadow
 }
 
 .footer-brand h2{
-    margin:0 0 22px !important;
-    color:#fff !important;
-    font-size:26px !important;
-    line-height:1.35 !important;
+    font-size:24px !important;
     font-weight:700 !important;
+    line-height:1.4 !important;
 }
 
 .footer h3{
@@ -141,6 +139,22 @@ input:focus,select:focus,textarea:focus{border-color:var(--secondary);box-shadow
 .footer a{
     font-size:17px !important;
     font-weight:400 !important;
+}
+
+.footer p a{
+    display:inline-block;
+    margin-bottom:10px;
+    color:#E5E7EB;
+    text-decoration:none;
+    transition:.2s;
+}
+
+.footer p a:hover{
+    color:#3B82F6;
+}
+
+.footer{
+    padding:70px 0 35px !important;
 }
 
 .footer-brand p,
