@@ -126,24 +126,32 @@ input:focus,select:focus,textarea:focus{border-color:var(--secondary);box-shadow
 }
 
 .footer-brand h2{
-  margin:0 0 22px;
-  color:#fff;
-  font-size:28px;
-  line-height:1.35;
+  margin:0 0 22px !important;
+  color:#fff !important;
+  font-size:28px !important;
+  line-height:1.35 !important;
+  font-weight:800 !important;
 }
 
-.footer-brand p,
+.footer-brand p{
+  margin:0 !important;
+  color:#CBD5E1 !important;
+  font-size:18px !important;
+  line-height:1.7 !important;
+  font-weight:400 !important;
+}
+
+.footer h3{
+  font-size:24px !important;
+  font-weight:800 !important;
+}
+
 .footer a{
-  color:#CBD5E1;
-  line-height:1.7;
+font-size:18px !important;
+font-weight:500 !important;
+line-height:1.8 !important;
 }
 
-.footer-bottom{
-  border-top:1px solid rgba(255,255,255,.12);
-  margin-top:45px;
-  padding-top:25px;
-  color:#94A3B8;
-}
 @media(max-width:900px){
     .footer-grid{
         grid-template-columns:1fr;
