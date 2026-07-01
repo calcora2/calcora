@@ -57,7 +57,6 @@ border-color:#BDBFFE;
 .tool-card h3{margin:0 0 8px;font-size:19px}
 .tool-card p{margin:0;color:var(--muted);font-size:14px;line-height:1.5}
 .categories{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-.categories{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
 
 .cat{
 display:flex;
@@ -193,8 +192,4 @@ input:focus,select:focus,textarea:focus{border-color:var(--secondary);box-shadow
 .section .container{
   width:min(1180px,92%) !important;
   margin:auto !important;
-}
-
-.footer{
-  width:100% !important;
 }
