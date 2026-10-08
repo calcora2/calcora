@@ -96,8 +96,20 @@ function currencyCalc(){
  show('result',`Converted amount: <b>${(amount*rate).toFixed(2)}</b><br><small>Manual rate converter. For live rates, add an API later.</small>`);
 }
 function searchTools(){
- const q=($('toolSearch')?.value||'').toLowerCase();
- document.querySelectorAll('[data-tool]').forEach(card=>{card.style.display=card.dataset.tool.toLowerCase().includes(q)?'block':'none'});
+ const q=($('toolSearch')?.value||'').trim().toLowerCase();
+ const cards=[...document.querySelectorAll('.tool-card')];
+ let visible=0;
+ cards.forEach(card=>{
+   const hay=(card.dataset.tool||'').toLowerCase();
+   const match=!q||hay.includes(q);
+   card.style.display=match?'':'none';
+   if(match) visible++;
+ });
+ const heading=$('toolsHeading');
+ if(heading && q) heading.textContent=`Search results for “${q}”`;
+ else if(heading) heading.textContent='All 100 Tools';
+ const no=$('noResults');
+ if(no) no.hidden=visible!==0;
 }
 document.querySelectorAll('.cat').forEach(btn => {
     btn.addEventListener('click', function () {
@@ -130,5 +142,216 @@ else{
 });
 
 function toggleMenu() {
- document.getElementById("mobileMenu").classList.toggle("active"); 
+ const menu=document.getElementById('mobileMenu');
+ const btn=document.querySelector('.menu-toggle');
+ if(!menu) return;
+ const open=menu.getAttribute('data-open') === 'true';
+ const next=!open;
+ menu.setAttribute('data-open', String(next));
+ if(btn){
+   btn.setAttribute('aria-expanded',String(next));
+   btn.setAttribute('aria-label',next?'Close navigation':'Open navigation');
+   btn.textContent=next?'✕':'☰';
+ }
 }
+
+// Keep the mobile menu closed on every fresh page load.
+(function(){
+ const menu=document.getElementById('mobileMenu');
+ const btn=document.querySelector('.menu-toggle');
+ if(menu){ menu.setAttribute('data-open','false'); menu.classList.remove('active'); }
+ if(btn){ btn.setAttribute('aria-expanded','false'); btn.setAttribute('aria-label','Open navigation'); btn.textContent='☰'; }
+})();
+
+document.addEventListener('click', function(e){
+ const menu=document.getElementById('mobileMenu'), btn=document.querySelector('.menu-toggle');
+ if(!menu || menu.getAttribute('data-open') !== 'true') return;
+ if(!menu.contains(e.target) && !btn?.contains(e.target)){
+   menu.setAttribute('data-open','false');
+   btn?.setAttribute('aria-expanded','false');
+   btn?.setAttribute('aria-label','Open navigation');
+   if(btn) btn.textContent='☰';
+ }
+});
+
+document.querySelectorAll('#mobileMenu a').forEach(function(link){
+ link.addEventListener('click', function(){
+   const menu=document.getElementById('mobileMenu');
+   const btn=document.querySelector('.menu-toggle');
+   menu?.setAttribute('data-open','false');
+   menu?.classList.remove('active');
+   btn?.setAttribute('aria-expanded','false');
+   btn?.setAttribute('aria-label','Open navigation');
+   if(btn) btn.textContent='☰';
+ });
+});
+
+/* Professional home-page directory controls */
+(function(){
+  const heroSearch=document.getElementById('toolSearch');
+  const dirSearch=document.getElementById('directorySearch');
+  const cards=[...document.querySelectorAll('#tools .tool-card')];
+  const buttons=[...document.querySelectorAll('.filter-btn')];
+  const status=document.getElementById('directoryStatus');
+  const heading=document.getElementById('toolsHeading');
+  let activeFilter='All';
+
+  function applyDirectory(){
+    const q=(dirSearch?.value || heroSearch?.value || '').trim().toLowerCase();
+    let visible=0;
+    cards.forEach(card=>{
+      const hay=(card.dataset.tool||'').toLowerCase();
+      const cat=(card.dataset.category||'').toLowerCase();
+      const matchesText=!q || hay.includes(q);
+      const matchesCat=activeFilter==='All' || cat===activeFilter.toLowerCase();
+      const show=matchesText && matchesCat;
+      card.style.display=show?'':'none';
+      if(show) visible++;
+    });
+    if(status) status.textContent=`Showing ${visible} of ${cards.length} tools`;
+    if(heading){
+      if(activeFilter!=='All' && !q) heading.textContent=activeFilter;
+      else if(q) heading.textContent=`Search results for “${q}”`;
+      else heading.textContent='All 100 Tools';
+    }
+    const no=document.getElementById('noResults');
+    if(no) no.hidden=visible!==0;
+  }
+
+  window.searchTools=applyDirectory;
+
+  heroSearch?.addEventListener('input',()=>{
+    if(dirSearch) dirSearch.value=heroSearch.value;
+    activeFilter='All';
+    buttons.forEach(b=>b.classList.toggle('active',b.dataset.filter==='All'));
+    applyDirectory();
+  });
+  dirSearch?.addEventListener('input',()=>{
+    if(heroSearch) heroSearch.value=dirSearch.value;
+    applyDirectory();
+  });
+  buttons.forEach(btn=>btn.addEventListener('click',()=>{
+    activeFilter=btn.dataset.filter||'All';
+    buttons.forEach(b=>b.classList.toggle('active',b===btn));
+    applyDirectory();
+    document.getElementById('tools')?.scrollIntoView({behavior:'smooth',block:'start'});
+  }));
+
+  document.querySelectorAll('.cat[data-jump-category]').forEach(cat=>cat.addEventListener('click',()=>{
+    const target=cat.dataset.jumpCategory||'All';
+    const match=buttons.find(b=>b.dataset.filter===target);
+    if(match) match.click();
+  }));
+
+  applyDirectory();
+})();
+
+/* =========================
+   Home-page math calculator
+   ========================= */
+(function(){
+  const display=document.getElementById('calcDisplay');
+  const exprEl=document.getElementById('calcExpression');
+  const keys=document.getElementById('calcKeys');
+  if(!display || !keys) return;
+  let expression='';
+  let memory=0;
+  let justEvaluated=false;
+
+  display.setAttribute('tabindex','-1');
+  function render(){
+    display.value=expression || '0';
+    if(exprEl) exprEl.textContent=justEvaluated ? 'Result' : expression;
+  }
+  function cleanExpression(s){
+    return s.replace(/×/g,'*').replace(/÷/g,'/').replace(/−/g,'-');
+  }
+  function validExpression(s){
+    return /^[0-9+\-*/%.()\s]+$/.test(s);
+  }
+  function evaluate(){
+    if(!expression) return;
+    let s=cleanExpression(expression).replace(/(\d+(?:\.\d+)?)%/g,'($1/100)');
+    if(!validExpression(s)) return;
+    try{
+      const value=Function('"use strict"; return ('+s+')')();
+      if(!Number.isFinite(value)) throw new Error('Invalid result');
+      expression=Number(value.toPrecision(12)).toString();
+      justEvaluated=true;
+      render();
+    }catch(e){
+      if(exprEl) exprEl.textContent='Invalid expression';
+    }
+  }
+  function append(v){
+    if(justEvaluated && /[0-9.(]/.test(v)) expression='';
+    justEvaluated=false;
+    if(v==='.'){
+      const part=expression.split(/[+\-×÷()]/).pop();
+      if(part.includes('.')) return;
+      if(!part) v='0.';
+    }
+    if(/[+\-×÷]/.test(v) && !expression && v!=='−') return;
+    const last=expression.slice(-1);
+    if(/[+\-×÷]/.test(v) && /[+\-×÷]/.test(last)) expression=expression.slice(0,-1);
+    expression+=v;
+    render();
+  }
+  function clear(){expression='';justEvaluated=false;render();}
+  function backspace(){if(justEvaluated){clear();return;} expression=expression.slice(0,-1);render();}
+  function percent(){
+    const m=expression.match(/(\d+(?:\.\d+)?)$/); if(!m) return;
+    expression=expression.slice(0,-m[1].length)+(Number(m[1])/100); render();
+  }
+  function square(){
+    if(!expression) return;
+    try{const v=Number(Function('"use strict"; return ('+cleanExpression(expression)+')')()); if(!Number.isFinite(v)) throw 0; expression=String(v*v); justEvaluated=true; render();}catch(e){}
+  }
+  function sqrt(){
+    if(!expression) return;
+    try{const v=Number(Function('"use strict"; return ('+cleanExpression(expression)+')')()); if(v<0||!Number.isFinite(v)) throw 0; expression=String(Math.sqrt(v)); justEvaluated=true; render();}catch(e){}
+  }
+  function sign(){
+    if(!expression) return;
+    const m=expression.match(/(\d+(?:\.\d+)?)$/); if(!m) return;
+    const start=expression.slice(0,-m[1].length);
+    expression=start+(Number(m[1])*-1); render();
+  }
+  function memoryAction(type){
+    let current=0;
+    try{current=expression?Number(Function('"use strict"; return ('+cleanExpression(expression)+')')()):0;}catch(e){current=0;}
+    if(type==='MC') memory=0;
+    if(type==='MR'){expression=String(memory);justEvaluated=false;render();}
+    if(type==='M+') memory+=current;
+    if(type==='M−') memory-=current;
+  }
+  function press(k){
+    if(k==='AC') return clear();
+    if(k==='⌫') return backspace();
+    if(k==='=') return evaluate();
+    if(k==='%') return percent();
+    if(k==='√') return sqrt();
+    if(k==='x²') return square();
+    if(k==='±') return sign();
+    if(['MC','MR','M+','M−'].includes(k)) return memoryAction(k);
+    if(k==='×'||k==='÷'||k==='+'||k==='−'||k==='('||k===')'||k==='.'||/^[0-9]$/.test(k)) return append(k);
+  }
+  keys.addEventListener('click',e=>{const b=e.target.closest('button[data-key]');if(b){press(b.dataset.key); b.blur();}});
+  document.addEventListener('keydown',e=>{
+    if(!document.body.classList.contains('home-page')) return;
+    const tag=(e.target.tagName||'').toLowerCase();
+    const isCalcDisplay=e.target && e.target.id==='calcDisplay';
+    if(['textarea','select'].includes(tag) || (tag==='input' && !isCalcDisplay)) return;
+    let k=e.key;
+    if(/^[0-9]$/.test(k)||k==='.'||k==='('||k===')'){e.preventDefault();press(k);return;}
+    if(k==='+'){e.preventDefault();press('+');return;}
+    if(k==='-'){e.preventDefault();press('−');return;}
+    if(k==='*'||k==='x'||k==='X'){e.preventDefault();press('×');return;}
+    if(k==='/'){e.preventDefault();press('÷');return;}
+    if(k==='%'){e.preventDefault();press('%');return;}
+    if(k==='Enter'||k==='='){e.preventDefault();press('=');return;}
+    if(k==='Backspace'){e.preventDefault();press('⌫');return;}
+    if(k==='Escape'){e.preventDefault();press('AC');return;}
+  });
+  render();
+})();

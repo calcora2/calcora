@@ -1,4 +1,3 @@
 User-agent: *
 Allow: /
-
-Sitemap: https://calcora2.github.io/calcora/sitemap.xml
+Sitemap: https://caluler.example/sitemap.xml
