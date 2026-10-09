@@ -154,7 +154,7 @@ function toggleMenu() {
    btn.textContent=next?'✕':'☰';
  }
 }
-
+document.querySelector('.menu-toggle')?.addEventListener('click', toggleMenu);
 // Keep the mobile menu closed on every fresh page load.
 (function(){
  const menu=document.getElementById('mobileMenu');
